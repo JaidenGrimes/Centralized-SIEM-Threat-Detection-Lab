@@ -40,25 +40,29 @@ index=main (CommandLine="*net user /domain*" OR CommandLine="*net group*")
 | table _time host Use* Image CommandLine
 ```
 
-### 5. Fai*ed Authentication & Brute-Force De*ection
-Monitored Windows Security *vent ID `4625` to identify spikes *n failed authentication attempts.
-*```spl
+### 5. Failed Authentication & Brute-Force Detection
+
+Monitored Windows Security Event ID `4625` to identify spikes in failed authentication attempts.
+
+```spl
 index=main EventCode=4625
-|*stats count by TargetUserName, Wor*stationName, src_ip
-| where count * 3
+| stats count by TargetUserName, WorkstationName, src_ip
+| where count > 3
 ```
 
-### 6. SOC Threat Detectio* Dashboard
-Designed the **SOC Thre*t Detection & Endpoint Operations** dashboard to centralize endpoint *ecurity monitoring.
+### 6. SOC Threat Detection Dashboard
 
-Dashboard pan*ls include:
-- **Sysmon Process Cre*tion** - Monitors suspicious parent-child process chains.
+Designed the **SOC Threat Detection & Endpoint Operations** dashboard to centralize endpoint security monitoring.
+
+Dashboard panels include:
+- **Sysmon Process Creation** - Monitors suspicious parent-child process chains.
 - **Failed Authentication Spikes** - Tracks Event ID `4625` for brute-force patterns.
 - **Obfuscated Script Execution** - Flags encoded command-line execution.
 
 ---
 
 ## Key Takeaways
+
 - **SIEM & Log Management:** Centralized Windows endpoint telemetry using Splunk Enterprise and Splunk Universal Forwarder.
 - **Detection Engineering:** Developed custom SPL detection queries for suspicious PowerShell activity, reconnaissance, and failed authentication attempts.
 - **Endpoint Visibility:** Used Sysmon telemetry to monitor process creation, network connections, and file modifications.
