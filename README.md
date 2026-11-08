@@ -1,59 +1,65 @@
 # Centralized SIEM & Threat Detection Lab
 
-**Splunk Enterprise | Sysmon | Windows 11 | Ubuntu Linux**
+## Overview
+Deploys a centralized SIEM environment using Splunk Enterprise, Microsoft Sysmon, and Splunk Universal Forwarder. This lab focuses on endpoint telemetry collection, SPL-based detection engineering, threat hunting, and SOC monitoring using Windows security and Sysmon event data.
 
-## Architecture Overview
+## Environment & Prerequisites
+- **SIEM Platform:** Splunk Enterprise
+- **SIEM Server:** Ubuntu Linux (`192.168.10.4`)
+- **Client Endpoint:** Windows 11 Enterprise (`WIN11-CLI`)
+- **Endpoint Telemetry:** Microsoft Sysmon
+- **Log Forwarding:** Splunk Universal Forwarder
+- **Data Sources:** Sysmon Event IDs `1`, `3`, `11` and Windows Security Audit logs
 
-- **SIEM Server:** Splunk Enterprise hosted on Ubuntu Linux (`192.168.10.4`)
-- **Target Endpoint:** Windows 11 Enterprise (`WIN11-CLI`) running Microsoft Sysmon and Splunk Universal Forwarder
-- **Telemetry Pipeline:** Sysmon Event IDs 1, 3, 11 and Windows Security Audit logs ingested into centralized indices for threat hunting
+---
 
-## Key Capabilities Developed
+## Deployment & Configuration Steps
 
-- **Telemetry Collection:** Configured Microsoft Sysmon with an advanced security configuration to capture process creation, network connections, and file modifications
-- **Detection Engineering:** Engineered custom Splunk Processing Language (SPL) detection rules to identify post-exploitation activity, command-line obfuscation, and internal reconnaissance
-- **SOC Monitoring:** Designed operational dashboard architecture to aggregate and visualize critical endpoint alerts
+### 1. Endpoint Telemetry Collection
+- Configured Microsoft Sysmon on the Windows 11 endpoint.
+- Collected process creation, network connection, and file modification telemetry.
+- Forwarded endpoint event logs to the centralized Splunk Enterprise server using Splunk Universal Forwarder.
 
-## Detection Engineering & SPL Queries
+### 2. Splunk SIEM Integration
+- Ingested Sysmon and Windows Security Audit logs into centralized Splunk indices.
+- Used collected endpoint telemetry for security monitoring and threat hunting.
 
-### 1. Encoded PowerShell Execution Detection
-
-Detects encoded PowerShell commands that may be used to obfuscate malicious payloads.
+### 3. Encoded PowerShell Execution Detection
+Created an SPL detection query to identify encoded PowerShell commands that may indicate command-line obfuscation.
 
 ```spl
 index=main Image="*\\powershell.exe" (CommandLine="*-e *" OR CommandLine="*-enc*")
 | table _time host User Image CommandLine
 ```
 
-### 2. Active Directory Domain Reconnaissance
-
-Detects native Windows enumeration commands such as `net group` and `net user /domain` used during internal discovery.
+### 4. Active Directory Domain Reconnaissance Detection
+Created an SPL detection query for native Windows enumeration commands such as `net user /domain` and `net group`.
 
 ```spl
 index=main (CommandLine="*net user /domain*" OR CommandLine="*net group*")
-| table _time host User Image CommandLine
+| table _time host Use* Image CommandLine
 ```
 
-### 3. Credential Access & Brute-Force Detection
-
-Monitors Windows Security Event ID `4625` for spikes in failed logon attempts.
-
-```spl
+### 5. Fai*ed Authentication & Brute-Force De*ection
+Monitored Windows Security *vent ID `4625` to identify spikes *n failed authentication attempts.
+*```spl
 index=main EventCode=4625
-| stats count by TargetUserName, WorkstationName, src_ip
-| where count > 3
+|*stats count by TargetUserName, Wor*stationName, src_ip
+| where count * 3
 ```
 
-## Operational Dashboard & Workflow
+### 6. SOC Threat Detectio* Dashboard
+Designed the **SOC Thre*t Detection & Endpoint Operations** dashboard to centralize endpoint *ecurity monitoring.
 
-**Dashboard:** SOC Threat Detection & Endpoint Operations
+Dashboard pan*ls include:
+- **Sysmon Process Cre*tion** - Monitors suspicious parent-child process chains.
+- **Failed Authentication Spikes** - Tracks Event ID `4625` for brute-force patterns.
+- **Obfuscated Script Execution** - Flags encoded command-line execution.
 
-### Panels
+---
 
-- **Sysmon Process Creation** – Monitors suspicious parent-child process chains
-- **Failed Authentication Spikes** – Tracks Event ID 4625 for brute-force patterns
-- **Obfuscated Script Execution** – Flags encoded command-line execution
-
-## Skills Demonstrated
-
-`Splunk` `SPL` `Sysmon` `SIEM` `Threat Detection` `Threat Hunting` `Windows Security` `SOC Monitoring` `Detection Engineering`
+## Key Takeaways
+- **SIEM & Log Management:** Centralized Windows endpoint telemetry using Splunk Enterprise and Splunk Universal Forwarder.
+- **Detection Engineering:** Developed custom SPL detection queries for suspicious PowerShell activity, reconnaissance, and failed authentication attempts.
+- **Endpoint Visibility:** Used Sysmon telemetry to monitor process creation, network connections, and file modifications.
+- **SOC Monitoring:** Built a centralized dashboard for monitoring endpoint security activity and detection events.
