@@ -59,7 +59,7 @@ Designed the **SOC Threat Detection & Endpoint Operations** dashboard to central
 
 Dashboard panels include:
 - **Sysmon Process Creation** - Monitors suspicious parent-child process chains.
-- **Failed Authentication Spikes** - Tracks Event ID `4625` for brute-force patterns.
+- **Authentication & Credential Access Monitoring** - Tracks Event IDs `4625` and `5379` for failed authentication and Credential Manager access activity.
 - **Obfuscated Script Execution** - Flags encoded command-line execution.
 
 ---
