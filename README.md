@@ -42,12 +42,15 @@ index=main (CommandLine="*net user /domain*" OR CommandLine="*net group*")
 
 ### 5. Failed Authentication & Brute-Force Detection
 
-Monitored Windows Security Event ID `4625` to identify spikes in failed authentication attempts.
+Monitored Windows Security Event ID `4625` and Event ID `5379` using XML regex parsing to identify spikes in failed authentication and credential access attempts.
 
 ```spl
-index=main EventCode=4625
-| stats count by TargetUserName, WorkstationName, src_ip
-| where count > 3
+index=main sourcetype="XmlWinEventLog:Security" 
+| rex field=_raw "<EventID>(?<EventCode>\d+)</EventID>"
+| search EventCode=4625 OR EventCode=5379
+| rex field=_raw "<Data Name="TargetUserName">(?<TargetUserName>[^<]+)</Data>"
+| stats count by TargetUserName host EventCode
+| sort - count
 ```
 
 ### 6. SOC Threat Detection Dashboard
