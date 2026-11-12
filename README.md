@@ -42,7 +42,7 @@ index=main (CommandLine="*net user /domain*" OR CommandLine="*net group*")
 | table _time host Use* Image CommandLine
 ```
 
-**_Active Directory Domain Reconnaissance Detection_** <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/30c60003-0f09-4f58-b7dc-8c744169fa8b" />
+**_Active Directory Domain Reconnaissance Execution & Results_** <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/30c60003-0f09-4f58-b7dc-8c744169fa8b" />
 
 
 ### 5. Failed Authentication & Brute-Force Detection
