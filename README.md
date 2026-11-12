@@ -32,7 +32,7 @@ index=main Image="*\\powershell.exe" (CommandLine="*-e *" OR CommandLine="*-enc*
 | table _time host User Image CommandLine
 ```
 
-**_Encoded PowerShell Execution Detection_** <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/66aa189f-a9fd-4e12-a56d-ecb9e872635b" />
+**_Encoded PowerShell Execution Results & Telemetry_** <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/66aa189f-a9fd-4e12-a56d-ecb9e872635b" />
 
 ### 4. Active Directory Domain Reconnaissance Detection
 Created an SPL detection query for native Windows enumeration commands such as `net user /domain` and `net group`.
@@ -58,7 +58,7 @@ index=main sourcetype="XmlWinEventLog:Security"
 | sort - count
 ```
 
-**_Failed Authentication & Brute-Force Detection_** <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/d5369b34-9cfd-4900-b6db-e594b5b85785" />
+**_Failed Authentication & Brute-Force Analysis Results_** <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/d5369b34-9cfd-4900-b6db-e594b5b85785" />
 
 ### 6. SOC Threat Detection Dashboard
 
