@@ -32,6 +32,8 @@ index=main Image="*\\powershell.exe" (CommandLine="*-e *" OR CommandLine="*-enc*
 | table _time host User Image CommandLine
 ```
 
+**_Encoded PowerShell Execution Detection_** <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/66aa189f-a9fd-4e12-a56d-ecb9e872635b" />
+
 ### 4. Active Directory Domain Reconnaissance Detection
 Created an SPL detection query for native Windows enumeration commands such as `net user /domain` and `net group`.
 
@@ -39,6 +41,9 @@ Created an SPL detection query for native Windows enumeration commands such as `
 index=main (CommandLine="*net user /domain*" OR CommandLine="*net group*")
 | table _time host Use* Image CommandLine
 ```
+
+**_Active Directory Domain Reconnaissance Detection_** <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/30c60003-0f09-4f58-b7dc-8c744169fa8b" />
+
 
 ### 5. Failed Authentication & Brute-Force Detection
 
@@ -53,6 +58,8 @@ index=main sourcetype="XmlWinEventLog:Security"
 | sort - count
 ```
 
+**_Failed Authentication & Brute-Force Detection_** <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/d5369b34-9cfd-4900-b6db-e594b5b85785" />
+
 ### 6. SOC Threat Detection Dashboard
 
 Designed the **SOC Threat Detection & Endpoint Operations** dashboard to centralize endpoint security monitoring.
@@ -61,6 +68,8 @@ Dashboard panels include:
 - **Sysmon Process Creation** - Monitors suspicious parent-child process chains.
 - **Authentication & Credential Access Monitoring** - Tracks Event IDs `4625` and `5379` for failed authentication and Credential Manager access activity.
 - **Obfuscated Script Execution** - Flags encoded command-line execution.
+
+**_SOC Threat Detection & Endpoint Operations Dashboard_** <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/cfde638d-0c28-46f6-bb9b-399a19b546c9" />
 
 ---
 
