@@ -69,7 +69,7 @@ Dashboard panels include:
 - **Authentication & Credential Access Monitoring** - Tracks Event IDs `4625` and `5379` for failed authentication and Credential Manager access activity.
 - **Obfuscated Script Execution** - Flags encoded command-line execution.
 
-**_SOC Threat Detection & Endpoint Operations Dashboard_** <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/cfde638d-0c28-46f6-bb9b-399a19b546c9" />
+**_SOC Threat Detection & Endpoint Operations Dashboard Interface_** <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/cfde638d-0c28-46f6-bb9b-399a19b546c9" />
 
 ---
 
